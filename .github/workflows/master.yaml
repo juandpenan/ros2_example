@@ -28,7 +28,7 @@ jobs:
           colcon-defaults: |
             {
               "test": {
-                "parallel-workers" : 1
+                "parallel-workers" : 1,
                 "ctest-args": [
                 "-LE", "copyright"]
               }
