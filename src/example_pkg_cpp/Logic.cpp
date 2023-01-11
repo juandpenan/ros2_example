@@ -23,7 +23,7 @@ Logic::Logic() {}
 int
 Logic::duplicate(int & value)
 {
-  return value *2;
+  return value * 2;
 }
 
 }  // namespace example_pkg_cpp
