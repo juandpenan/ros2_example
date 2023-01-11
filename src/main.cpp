@@ -19,7 +19,8 @@
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-
+  
+  // line added to test ci
   auto example_node = std::make_shared<example_pkg_cpp::ExampleNode>();
   rclcpp::spin(example_node);
 
