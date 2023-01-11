@@ -29,6 +29,8 @@ jobs:
             {
               "test": {
                 "parallel-workers" : 1
+                "ctest-args": [
+                "-LE", "copyright"]
               }
             }
           colcon-mixin-name: coverage-gcc
