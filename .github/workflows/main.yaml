@@ -38,7 +38,7 @@ jobs:
         with:
           rosdistro: humble
           target-packages: ${{ steps.get-self-packages.outputs.self-packages }}
-          label-regex: -LE "copyright"
+
           # build-depends-repos: build_depends.repos
 
       - name: Upload coverage to CodeCov
