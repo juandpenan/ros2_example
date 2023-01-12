@@ -37,9 +37,9 @@ jobs:
           colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
       - name: Codecov
         uses: codecov/codecov-action@v3
-        # with:
-        #   flags: unittests # optional
-        #   file: ros_ws/lcov/total_coverage.info
-        #   name: codecov-umbrella # optional
-        #   fail_ci_if_error: true # optional (default = false)
-        #   verbose: true # optional (default = false)
+        with:
+          flags: unittests # optional
+          files: ros_ws/lcov/total_coverage.info
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
