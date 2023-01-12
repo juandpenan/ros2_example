@@ -36,7 +36,7 @@ jobs:
           colcon-mixin-name: coverage-gcc
           colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
       - name: Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v2
         with:
           directory: ./coverage/reports/
           fail_ci_if_error: true
