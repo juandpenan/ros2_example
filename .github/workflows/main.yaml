@@ -101,26 +101,25 @@ jobs:
     steps:
       - name: Install deps
         run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result libfl-dev
-      - name: build and test
-        uses: ros-tooling/action-ros-ci@0.2.6
+
+      - name: Get modified packages
+        id: get-modified-packages
+        uses: autowarefoundation/autoware-github-actions/get-modified-packages@v1
+
+      - name: Build
+        uses: autowarefoundation/autoware-github-actions/colcon-build@v1
         with:
-          package-name: ros_example_pkg
-          target-ros2-distro: humble
-          colcon-defaults: |
-            {
-              "build":{
-                "mixin": ["coverage-gcc"]
-              },
-              "test": {
-                "parallel-workers" : 1,
-                "ctest-args": [
-                "-LE", "copyright"]
-              }
-            }          
-          colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml}
-      - name: Codecov
-        uses: codecov/codecov-action@v3
+          rosdistro: humble
+          target-packages: ${{ steps.get-modified-packages.outputs.modified-packages }}
+          build-depends-repos: build_depends.repos
+
+      - name: Test
+        id: test
+        if: ${{ steps.get-modified-packages.outputs.modified-packages != '' }}
+        uses: autowarefoundation/autoware-github-actions/colcon-test@v1
         with:
-          files: ros_ws/lcov/total_coverage.info,ros_ws/coveragepy/.coverage
-          flags: unittests
-          name: codecov-umbrella
+          rosdistro: humble
+          target-packages: ${{ steps.get-modified-packages.outputs.modified-packages }}
+          build-depends-repos: build_depends.repos
+
+
