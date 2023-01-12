@@ -38,8 +38,10 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:
-          flags: unittests # optional
-          files: ros_ws/lcov/total_coverage.info
-          name: codecov-umbrella # optional
-          fail_ci_if_error: true # optional (default = false)
-          verbose: true # optional (default = false)
+          directory: ./coverage/reports/
+          fail_ci_if_error: true
+          files: ./coverage1.xml,./coverage2.xml
+          flags: unittests
+          name: codecov-umbrella
+          path_to_write_report: ./coverage/codecov_report.txt
+          verbose: true
