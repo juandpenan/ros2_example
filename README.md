@@ -1,6 +1,6 @@
 # ROS_EXAMPLE_PKG
 [![main](https://github.com/juandpenan/ros_example_pkg/actions/workflows/main.yaml/badge.svg)](https://github.com/juandpenan/ros_example_pkg/actions/workflows/main.yaml)
-
+[![codecov](https://codecov.io/gh/ros-tooling/action-ros-ci/branch/master/graph/badge.svg)](https://codecov.io/gh/ros-tooling/action-ros-ci)
 This repository contains an example ros2 package quality1 according to the Coresense project guidelines.
 
 ## Install and building
