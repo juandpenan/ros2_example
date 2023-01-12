@@ -38,8 +38,8 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v1.2.1
         with:
-          file: ros_ws/lcov/total_coverage.info
-          flags: unittests
-          name: codecov-umbrella
-          # yml: ./codecov.yml
-          fail_ci_if_error: false
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+        fail_ci_if_error: false
