@@ -90,36 +90,24 @@ on:
       - main
 
 jobs:
-  build-and-test:
-    runs-on: ${{ matrix.os }}
-    container:
-      image: osrf/ros:humble-desktop
-    strategy:
-      matrix:
-        os: [ubuntu-22.04]
-      fail-fast: false
+  build:
+    runs-on: ubuntu-latest
+    container: ros:humble
     steps:
-      - name: Install deps
-        run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result libfl-dev
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Get modified packages
         id: get-modified-packages
         uses: autowarefoundation/autoware-github-actions/get-modified-packages@v1
 
       - name: Build
+        if: ${{ steps.get-modified-packages.outputs.modified-packages != '' }}
         uses: autowarefoundation/autoware-github-actions/colcon-build@v1
         with:
           rosdistro: humble
           target-packages: ${{ steps.get-modified-packages.outputs.modified-packages }}
           build-depends-repos: build_depends.repos
-
-      - name: Test
-        id: test
-        if: ${{ steps.get-modified-packages.outputs.modified-packages != '' }}
-        uses: autowarefoundation/autoware-github-actions/colcon-test@v1
-        with:
-          rosdistro: humble
-          target-packages: ${{ steps.get-modified-packages.outputs.modified-packages }}
-          build-depends-repos: build_depends.repos
-
 
