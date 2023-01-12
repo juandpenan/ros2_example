@@ -12,6 +12,13 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     container: ghcr.io/autowarefoundation/autoware-universe:latest
+    strategy:
+      matrix:
+        include:
+          - test-label: gtest
+            codecov-flags: gtest
+          - test-label: launch_test
+            codecov-flags: launch_test
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -29,7 +36,7 @@ jobs:
         with:
           rosdistro: humble
           target-packages: ${{ steps.get-self-packages.outputs.self-packages }}
-          # build-depends-repos: build_depends.repos
+
 
       - name: Test
         if: ${{ steps.get-self-packages.outputs.self-packages != '' }}
@@ -38,6 +45,7 @@ jobs:
         with:
           rosdistro: humble
           target-packages: ${{ steps.get-self-packages.outputs.self-packages }}
+          label-regex: ${{ matrix.test-label }}
 
           # build-depends-repos: build_depends.repos
 
@@ -49,38 +57,3 @@ jobs:
           fail_ci_if_error: false
           verbose: true
           flags: total
-# jobs:
-#   build-and-test:
-#     runs-on: ${{ matrix.os }}
-#     container:
-#       image: osrf/ros:humble-desktop
-#     strategy:
-#       matrix:
-#         os: [ubuntu-22.04]
-#       fail-fast: false
-#     steps:
-#       - name: Install deps
-#         run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result libfl-dev
-#       - name: build and test
-#         uses: ros-tooling/action-ros-ci@0.2.6
-#         with:
-#           package-name: ros_example_pkg
-#           target-ros2-distro: humble
-#           colcon-defaults: |
-#             {
-#               "test": {
-#                 "parallel-workers" : 1,
-#                 "ctest-args": [
-#                 "-LE", "copyright"]
-#               }
-#             }
-#           colcon-mixin-name: coverage-gcc
-#           colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
-#       - name: Codecov
-#         uses: codecov/codecov-action@v2.0.2
-#         with:
-#           file: ros_ws/lcov/total_coverage.info
-#           flags: unittests
-#           name: codecov-umbrella
-#           # yml: ./codecov.yml
-#           fail_ci_if_error: false
