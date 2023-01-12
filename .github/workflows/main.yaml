@@ -118,7 +118,6 @@ jobs:
               }
             }          
           colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml}
-      rhaschke/lcov-action@main
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:
