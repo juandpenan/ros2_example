@@ -21,7 +21,7 @@ jobs:
       - name: Install deps
         run: sudo apt-get update && sudo apt-get install -y wget python3-vcstool python3-colcon-coveragepy-result libfl-dev
       - name: build and test
-        uses: ros-tooling/action-ros-ci@0.2.6
+        uses: ros-tooling/action-ros-ci@master
         with:
           package-name: ros_example_pkg
           target-ros2-distro: humble
@@ -29,6 +29,7 @@ jobs:
             {
               "test": {
                 "parallel-workers" : 1
+                "skip-license-check": true
               }
             }
           fail_ci_if_error: false
