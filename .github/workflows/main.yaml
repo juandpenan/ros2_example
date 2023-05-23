@@ -29,7 +29,6 @@ jobs:
             {
               "test": {
                 "parallel-workers" : 1
-                "skip-license-check": true
               }
             }
           fail_ci_if_error: false
